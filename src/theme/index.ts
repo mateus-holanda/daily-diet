@@ -3,7 +3,7 @@ export default {
     WHITE: '#FFFFFF',
 
     GRAY_700: '#FAFAFA',
-    GRAY_600: '#DDDEDF',
+    GRAY_600: '#EFF0F0',
     GRAY_500: '#DDDEDF',
     GRAY_400: '#B9BBBC',
     GRAY_300: '#5C6265',
@@ -19,8 +19,8 @@ export default {
     RED_DARK: '#BF3B44'
   },
   FONT_FAMILY: {
-    REGULAR: 'Nunito_400Regular',
-    BOLD: 'Nunito_700Bold'
+    REGULAR: 'NunitoSans_400Regular',
+    BOLD: 'NunitoSans_700Bold'
   },
   FONT_SIZE: {
     XS: 12,
