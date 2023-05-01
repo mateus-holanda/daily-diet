@@ -9,7 +9,7 @@ export const Container = styled.View`
   max-height: 40px;
   min-height: 50px;
 
-  margin: 32px 0;
+  margin-bottom: 32px;
 
   align-items: center;
   justify-content: space-between;

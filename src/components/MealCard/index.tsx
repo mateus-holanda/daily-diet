@@ -1,14 +1,23 @@
-import { Container, Meal, MealCardTypeStyleProps, Time, TypeIndicator, VerticalBar } from "./styles";
+import { TouchableOpacityProps } from 'react-native';
 
-interface MealCardProps {
+import {
+  Container,
+  Meal,
+  MealCardTypeStyleProps,
+  Time,
+  TypeIndicator,
+  VerticalBar
+} from './styles';
+
+interface MealCardProps extends TouchableOpacityProps {
   time: string;
   meal: string;
   type: MealCardTypeStyleProps;
 }
 
-export function MealCard({ time, meal, type }: MealCardProps) {
+export function MealCard({ time, meal, type, ...rest }: MealCardProps) {
   return (
-    <Container type={type}>
+    <Container type={type} {...rest}>
       <Time>{time}</Time>
       <VerticalBar />
       <Meal>{meal}</Meal>

@@ -1,19 +1,27 @@
+import { useNavigation,useRoute } from '@react-navigation/native';
+
 import { Bold, Container, Content, Subtitle, Title } from './styles';
 
 import { Button } from '@components/Button';
 
 import DietSuccess from '@assets/diet-success.svg';
 import DietFail from '@assets/diet-fail.svg';
-import { useState } from 'react';
+
+interface RouteParams {
+  onDiet: boolean;
+}
 
 export function MealRegistered() {
-  const [type, setType] = useState<'SUCCESS' | 'FAIL'>('FAIL');
+  const navigation = useNavigation();
+
+  const route = useRoute();
+  const { onDiet } = route.params as RouteParams;
 
   return (
     <Container>
-      { type === 'SUCCESS' ? (
+      { onDiet ? (
           <Content>
-            <Title type={type}>Continue assim!</Title>
+            <Title type="SUCCESS">Continue assim!</Title>
             <Subtitle>
               Você continua <Bold>dentro da dieta</Bold>. Muito bem!
             </Subtitle>
@@ -21,7 +29,7 @@ export function MealRegistered() {
           </Content>
         ) : (
           <Content>
-            <Title type={type}>Que pena!</Title>
+            <Title type="FAIL">Que pena!</Title>
             <Subtitle>
               Você <Bold>saiu da dieta</Bold>
               {
@@ -34,7 +42,10 @@ export function MealRegistered() {
         )
       }
 
-      <Button title="Ir para a página inicial" />
+      <Button
+        title="Ir para a página inicial"
+        onPress={() => navigation.navigate('home')}
+      />
     </Container>
   );
 }

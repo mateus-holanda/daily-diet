@@ -1,11 +1,13 @@
 import { SectionList, Text, View } from 'react-native';
-import { Container, NewMealContainer, SectionHeader } from './styles';
+import { useNavigation } from '@react-navigation/native';
 
 import { ProfileHeader } from '@components/ProfileHeader';
 import { StatsCard } from '@components/StatsCard';
 import { Button } from '@components/Button';
 import { MealCard } from '@components/MealCard';
 import { EmptyList } from '@components/EmptyList';
+
+import { Container, NewMealContainer, SectionHeader } from './styles';
 
 const data = [
   {
@@ -71,6 +73,12 @@ const data = [
 ];
 
 export function Home() {
+  const navigation = useNavigation();
+  
+  function handleCreateNewMeal() {
+    navigation.navigate('new');
+  }
+
   return (
     <Container>
       <ProfileHeader />
@@ -79,32 +87,43 @@ export function Home() {
 
       <NewMealContainer>
         <Text>Refeições</Text>
-        <Button title="Nova refeição" icon="plus" />
+        <Button
+          title="Nova refeição"
+          icon="plus"
+          onPress={handleCreateNewMeal}
+        />
       </NewMealContainer>
 
         <SectionList
           style={{ marginTop: 40 }}
           sections={data}
           keyExtractor={(item) => item.time + ' - ' + item.meal}
-          renderItem={({item}) => (
+          renderItem={({item, section }) => (
             <MealCard
               time={item.time}
               meal={item.meal}
               type="POSITIVE"
+              onPress={() => navigation.navigate('info', {
+                meal: item.meal,
+                description: 'Descrição qualquer da comida',
+                date: section.date,
+                time: item.time,
+                onDiet: true
+              })}
             />
           )}
           renderSectionHeader={({section: {date}}) => (
             <SectionHeader>{date}</SectionHeader>
           )}
-          SectionSeparatorComponent={() => (
-            <View style={{ height: 16 }} />
-          )}
-          ItemSeparatorComponent={() => (
-            <View style={{ height: 8 }} />
-          )}
-          ListEmptyComponent={() => (
-            <EmptyList />
-          )}
+          //SectionSeparatorComponent={() => (
+          //  <View style={{ height: 16 }} />
+          //)}
+          //ItemSeparatorComponent={() => (
+          //  <View style={{ height: 8 }} />
+          //)}
+          //ListEmptyComponent={() => (
+          //  <EmptyList />
+          //)}
           stickySectionHeadersEnabled={false}
           showsVerticalScrollIndicator={false}
         />

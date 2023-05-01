@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Modal } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import { Button } from '@components/Button';
 import { Header } from '@components/Header';
-//import { Modal } from '@components/Modal';
 
 import {
   ButtonsContainer,
@@ -22,6 +22,24 @@ import {
 export function MealInfo() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const type = 'POSITIVE';
+
+  const navigation = useNavigation();
+
+  function handleEditMeal() {
+    setIsModalVisible(false);
+    navigation.navigate('edit', {
+      meal: 'Sanduíche',
+      description: 'Sanduíche de pão integral com atum e salada de alface e tomate',
+      date: '17/04/2023',
+      time: '17:00',
+      onDiet: true,
+    });
+  }
+
+  function handleRemoveMeal() {
+    setIsModalVisible(false);
+    navigation.navigate('home');
+  }
 
   return (
     <Container modalOpen={isModalVisible}>
@@ -43,7 +61,7 @@ export function MealInfo() {
               />
               <Button
                 title="Sim, excluir"
-                onPress={() => setIsModalVisible(false)}
+                onPress={handleRemoveMeal}
               />
             </ModalButtonsContainer>
           </ModalContent>
@@ -67,7 +85,11 @@ export function MealInfo() {
         </DietType>
 
         <ButtonsContainer>
-          <Button title="Editar Refeição" icon="edit" />
+          <Button
+            title="Editar Refeição"
+            icon="edit"
+            onPress={handleEditMeal}
+          />
           <Button
             title="Excluir Refeição"
             icon="delete"

@@ -4,11 +4,7 @@ import { useFonts, NunitoSans_400Regular, NunitoSans_700Bold } from '@expo-googl
 
 import theme from '@theme/index';
 
-import { Home } from '@screens/Home/index';
-import { NewMeal } from '@screens/NewMeal/index';
-import { MealRegistered } from '@screens/MealRegistered/index';
-import { MealInfo } from '@screens/MealInfo/index';
-import { EditMeal } from '@screens/EditMeal/index';
+import { Routes } from '@routes/index';
 
 export default function App() {
   const [fontsLoaded] = useFonts({ NunitoSans_400Regular, NunitoSans_700Bold });
@@ -20,7 +16,7 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-      { fontsLoaded ? <MealInfo /> : <ActivityIndicator /> }
+      { fontsLoaded ? <Routes /> : <ActivityIndicator /> }
     </ThemeProvider>
   );
 }

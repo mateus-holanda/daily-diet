@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Text } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import { DatetimePicker } from '@components/DatetimePicker';
 import { DietTypeButton } from '@components/DietTypeButton';
@@ -18,6 +19,12 @@ import {
 
 export function EditMeal() {
   const [activeDietType, setActiveDietType] = useState('onDiet');
+
+  const navigation = useNavigation();
+
+  function handleSaveChanges() {
+    navigation.navigate('home');
+  }
 
   return (
     <Container>
@@ -64,7 +71,10 @@ export function EditMeal() {
         </DietTypeSelector>
         
         <ButtonContainer>
-          <Button title="Salvar alterações" />
+          <Button
+            title="Salvar alterações"
+            onPress={handleSaveChanges}
+          />
         </ButtonContainer>
       </EditMealForm>
     </Container>
