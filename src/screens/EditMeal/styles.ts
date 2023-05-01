@@ -2,11 +2,9 @@ import styled from 'styled-components/native';
 
 import theme from '@theme/index';
 
-export const Container = styled.View`
-  flex: 1;
-`;
+export const Container = styled.View``;
 
-export const NewMealForm = styled.View`
+export const EditMealForm = styled.View`
   height: 90%;
   padding: 24px;
   margin-top: -32px;

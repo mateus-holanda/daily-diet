@@ -7,7 +7,6 @@ export function ProfileHeader() {
   return (
     <Container>
       <Logo size={24} />
-
       <ProfileImage source={profileImg} />
     </Container>
   );

@@ -1,7 +1,18 @@
-import { View } from 'react-native';
+import { Container, BackButton, BackIcon, HeaderTypeStyleProps, Title } from './styles';
 
-export function Header() {
+interface HeaderProps {
+  title: string;
+  type: HeaderTypeStyleProps;
+}
+
+export function Header({ title, type }: HeaderProps) {
   return (
-    <View>Header</View>
+    <Container type={type}>
+      <BackButton>
+        <BackIcon name="arrowleft" />
+      </BackButton>
+
+      <Title>{title}</Title>
+    </Container>
   );
 }

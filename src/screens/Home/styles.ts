@@ -5,12 +5,18 @@ import theme from '../../theme';
 
 export const Container = styled(SafeAreaView)`
   flex: 1;
-  background-color: ${theme.COLORS.GRAY_700};
   padding: 24px;
+  background-color: ${theme.COLORS.GRAY_700};
 `;
 
 export const NewMealContainer = styled.View`
-  font-size: ${theme.FONT_SIZE.MD}px;
-  margin: 40px 0;
+  padding: 40px 0;
   gap: 8px;
+
+  font-size: ${theme.FONT_SIZE.MD}px;
+`;
+
+export const SectionHeader = styled.Text`
+  color: ${theme.COLORS.GRAY_100};
+  font-size: ${theme.FONT_SIZE.LG}px;
 `;

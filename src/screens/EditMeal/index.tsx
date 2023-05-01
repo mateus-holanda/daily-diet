@@ -1,36 +1,38 @@
 import { useState } from 'react';
 import { Text } from 'react-native';
 
-import { Header } from '@components/Header';
-import { Button } from '@components/Button';
-import { Input } from '@components/Input';
 import { DatetimePicker } from '@components/DatetimePicker';
 import { DietTypeButton } from '@components/DietTypeButton';
+import { Header } from '@components/Header';
+import { Input } from '@components/Input';
+import { Button } from '@components/Button';
 
 import {
+  ButtonContainer,
   Container,
   DatetimePickerContainer,
-  DietTypeSelector,
   DietTypeButtons,
-  NewMealForm,
-  ButtonContainer
+  DietTypeSelector,
+  EditMealForm
 } from './styles';
 
-export function NewMeal() {
-  const [activeDietType, setActiveDietType] = useState('');
+export function EditMeal() {
+  const [activeDietType, setActiveDietType] = useState('onDiet');
 
   return (
     <Container>
-      <Header title="Nova refeição" type="NEUTRAL" />
+      <Header title="Editar refeição" type="NEUTRAL" />
 
-      <NewMealForm>
+      <EditMealForm>
         <Input
           title="Nome"
           returnKeyType="done"
+          value="Sanduíche"
         />
 
         <Input
           title="Descrição"
+          value="Descrição qualquer da refeição"
           description
           multiline
           numberOfLines={1}
@@ -62,9 +64,9 @@ export function NewMeal() {
         </DietTypeSelector>
         
         <ButtonContainer>
-          <Button title="Cadastrar refeição" />
+          <Button title="Salvar alterações" />
         </ButtonContainer>
-      </NewMealForm>
+      </EditMealForm>
     </Container>
   );
 }

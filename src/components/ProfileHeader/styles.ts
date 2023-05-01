@@ -21,5 +21,5 @@ export const ProfileImage = styled.Image`
 
   border-width: 2px;
   border-color: ${theme.COLORS.GRAY_200};
-  border-radius: 40px;
+  border-radius: 100%;
 `;

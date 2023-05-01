@@ -12,14 +12,12 @@ export const Container = styled.TouchableOpacity<TouchableOpacityProps>`
   flex: 1;
   flex-direction: row;
 
+  height: 49px;
   border-radius: 6px;
-
-  min-height: 49px;
-  max-height: 49px;
+  border-width: 2px;
 
   align-items: center;
 
-  border-width: 2px;
   border-color: ${({ type }) => type === 'POSITIVE' ? theme.COLORS.GREEN_LIGHT : theme.COLORS.RED_LIGHT };
   background-color: ${theme.COLORS.GRAY_700};
 `;
@@ -47,9 +45,12 @@ export const Meal = styled.Text`
 `;
 
 export const TypeIndicator = styled.View<TouchableOpacityProps>`
+  position: absolute;
+  
   width: 14px;
   height: 14px;
-  margin-right: 16px;
-  border-radius: 10px;
+  right: 16px;
+  border-radius: 100%;
+  
   background-color: ${({ type }) => type === 'POSITIVE' ? theme.COLORS.GREEN_LIGHT : theme.COLORS.RED_LIGHT };
 `;

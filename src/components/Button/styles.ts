@@ -1,5 +1,5 @@
 import { Text, TouchableOpacity } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import styled from 'styled-components/native';
 
 import theme from '@theme/index';
@@ -14,6 +14,7 @@ export const Container = styled(TouchableOpacity)<TouchableOpacityProps>`
   flex: 1;
   flex-direction: row;
 
+  padding: 0 24px;
   min-height: 50px;
   max-height: 50px;
 
@@ -26,7 +27,7 @@ export const Container = styled(TouchableOpacity)<TouchableOpacityProps>`
   justify-content: center;
 `;
 
-export const Icon = styled(MaterialIcons).attrs<TouchableOpacityProps>(({ type }) => ({
+export const Icon = styled(AntDesign).attrs<TouchableOpacityProps>(({ type }) => ({
   size: 20,
   color: type === 'LIGHT' ? theme.COLORS.GRAY_100 : theme.COLORS.WHITE
 }))`
