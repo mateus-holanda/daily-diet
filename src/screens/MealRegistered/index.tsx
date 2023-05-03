@@ -1,11 +1,11 @@
-import { useNavigation,useRoute } from '@react-navigation/native';
-
-import { Bold, Container, Content, Subtitle, Title } from './styles';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { Button } from '@components/Button';
 
 import DietSuccess from '@assets/diet-success.svg';
 import DietFail from '@assets/diet-fail.svg';
+
+import { Bold, Container, Content, Subtitle, Title } from './styles';
 
 interface RouteParams {
   onDiet: boolean;

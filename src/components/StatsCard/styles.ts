@@ -45,6 +45,8 @@ export const Number = styled.Text<TouchableOpacityProps>`
 `;
 
 export const Description = styled.Text`
+  text-align: center;
+
   font-size: ${theme.FONT_SIZE.SM}px;
   font-family: ${theme.FONT_FAMILY.REGULAR};
   color: ${theme.COLORS.GRAY_200};

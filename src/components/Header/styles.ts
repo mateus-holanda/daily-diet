@@ -6,15 +6,16 @@ import theme from '@theme/index';
 export type HeaderTypeStyleProps = 'POSITIVE' | 'NEGATIVE' | 'NEUTRAL';
 
 interface ViewProps {
+  title?: string;
   type: HeaderTypeStyleProps;
 }
 
 export const Container = styled.View<ViewProps>`
   width: 100%;
-  height: 132px;
+  height: ${({ title }) => title ? 132 : 200 }px;
   padding-horizontal: 24px;
 
-  flex-direction: row;
+  flex-direction: ${({ title }) => title ? 'row' : 'column' };
   align-items: center;
   justify-content: center;
 
@@ -22,13 +23,16 @@ export const Container = styled.View<ViewProps>`
 `;
 
 export const BackButton = styled.TouchableOpacity`
-  flex: 1
+  position: absolute;
+  top: 48px;
+  left: 24px;
+  z-index: 1;
 `;
 
-export const BackIcon = styled(AntDesign).attrs({
+export const BackIcon = styled(AntDesign).attrs<ViewProps>(({ type }) => ({
   size: 24,
-  color: theme.COLORS.GRAY_200,
-})``;
+  color: type === 'POSITIVE' ? theme.COLORS.GREEN_DARK : ( type === 'NEGATIVE' ? theme.COLORS.RED_DARK : theme.COLORS.GRAY_200)
+}))``;
 
 export const Title = styled.Text`
   position: absolute;

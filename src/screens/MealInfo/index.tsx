@@ -1,6 +1,10 @@
 import { useState } from 'react';
-import { Modal } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { Alert, Modal } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+
+import { AppError } from '@utils/AppError';
+
+import { removeMealById } from '@storage/meals/removeMealById';
 
 import { Button } from '@components/Button';
 import { Header } from '@components/Header';
@@ -19,26 +23,48 @@ import {
   TypeIndicator
 } from './styles';
 
+interface RouteParams {
+  id: string;
+  meal: string;
+  description: string;
+  date: string;
+  time: string;
+  onDiet: boolean;
+}
+
 export function MealInfo() {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const type = 'POSITIVE';
 
   const navigation = useNavigation();
+
+  const route = useRoute();
+  const { id, meal, description, date, time, onDiet } = route.params as RouteParams;
 
   function handleEditMeal() {
     setIsModalVisible(false);
     navigation.navigate('edit', {
-      meal: 'Sanduíche',
-      description: 'Sanduíche de pão integral com atum e salada de alface e tomate',
-      date: '17/04/2023',
-      time: '17:00',
-      onDiet: true,
+      id,
+      meal,
+      description,
+      date,
+      time,
+      onDiet,
     });
   }
 
-  function handleRemoveMeal() {
-    setIsModalVisible(false);
-    navigation.navigate('home');
+  async function handleRemoveMeal(id: string, date: string) {
+    try {
+      await removeMealById(id, date);
+      setIsModalVisible(false);
+
+      navigation.navigate('home');
+    } catch (error) {
+      if (error instanceof AppError) {
+        Alert.alert('Nova refeição', error.message);
+      } else {
+        Alert.alert('Excluir refeição', 'Houve um problema ao tentar excluir essa refeição.');
+      }
+    }
   }
 
   return (
@@ -61,26 +87,26 @@ export function MealInfo() {
               />
               <Button
                 title="Sim, excluir"
-                onPress={handleRemoveMeal}
+                onPress={() => handleRemoveMeal(id, date)}
               />
             </ModalButtonsContainer>
           </ModalContent>
         </Modal>
 
-      <Header title="Refeição" type={type} />
+      <Header title="Refeição" type={onDiet ? "POSITIVE" : "NEGATIVE"} />
 
       <MealInfoContainer>
-        <Title>Sanduíche</Title>
+        <Title>{meal}</Title>
         <Description>
-          Sanduíche de pão integral com atum e salada de alface e tomate
+          {description}
         </Description>
         <Subtitle>Data e hora</Subtitle>
-        <Description>12/04/2023 às 17:00</Description>
+        <Description>{date} às {time}</Description>
 
         <DietType>
-          <TypeIndicator type={type} />
+          <TypeIndicator onDiet={onDiet} />
           <Subtitle>
-            { type === 'POSITIVE' ? 'dentro da dieta' : 'fora da dieta' }
+            { onDiet ? 'dentro da dieta' : 'fora da dieta' }
           </Subtitle>
         </DietType>
 

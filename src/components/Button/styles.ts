@@ -8,6 +8,7 @@ export type ButtonTypeStyleProps = 'LIGHT' | 'DARK';
 
 interface TouchableOpacityProps {
   type: ButtonTypeStyleProps;
+  disabled?: boolean;
 }
 
 export const Container = styled(TouchableOpacity)<TouchableOpacityProps>`
@@ -17,9 +18,9 @@ export const Container = styled(TouchableOpacity)<TouchableOpacityProps>`
   padding: 0 24px;
   min-height: 50px;
   max-height: 50px;
-
-  background-color: ${({ type }) => type === 'LIGHT' ? 'transparent' : theme.COLORS.GRAY_200};
   
+  opacity: ${({ disabled }) => disabled ? 0.5 : 1};
+  background-color: ${({ type }) => type === 'LIGHT' ? 'transparent' : theme.COLORS.GRAY_200};
   border: ${({ type }) => type === 'LIGHT' ? `2px solid ${theme.COLORS.GRAY_100}`: 'none' };
   border-radius: 6px;
 

@@ -7,7 +7,7 @@ type ContainerProps = {
 }
 
 interface TypeIndicatorProps {
-  type: 'POSITIVE' | 'NEGATIVE';
+  onDiet: boolean;
 }
 
 export const Container = styled.View<ContainerProps>`
@@ -65,7 +65,7 @@ export const TypeIndicator = styled.View<TypeIndicatorProps>`
   height: 8px;
   border-radius: 100%;
 
-  background-color: ${({ type }) => type === 'POSITIVE' ? theme.COLORS.GREEN_DARK : theme.COLORS.RED_DARK };
+  background-color: ${({ onDiet }) => onDiet ? theme.COLORS.GREEN_DARK : theme.COLORS.RED_DARK };
 `;
 
 export const ButtonsContainer = styled.View`
@@ -77,7 +77,7 @@ export const ButtonsContainer = styled.View`
 `;
 
 export const ModalContent = styled.View`
-  top: 40%;
+  top: 35%;
   margin-horizontal: 24px;
   padding: 48px 24px 24px;
   max-height: 192px;

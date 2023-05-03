@@ -19,6 +19,8 @@ export const InputArea = styled(TextInput)<InputTypeStyleProps>`
   border-radius: 6px;
   border-width: 2px;
   border-color: ${theme.COLORS.GRAY_500};
+
+  align-items: center;
   
   color: ${theme.COLORS.GRAY_100};
   font-family: ${theme.FONT_FAMILY.REGULAR};

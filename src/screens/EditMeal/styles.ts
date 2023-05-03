@@ -9,11 +9,25 @@ export const EditMealForm = styled.View`
   padding: 24px;
   margin-top: -32px;
   border-radius: 20px;
+
   background-color: ${theme.COLORS.GRAY_700};
 `;
 
-export const DatetimePickerContainer = styled.View`
+export const DatetimePickersContainer = styled.View`
   flex-direction: row;
+  gap: 8px;
+  justify-content: 'flex-start';
+`;
+
+export const DatetimePickerInput = styled.View`
+  flex-direction: 'column';
+  width: 50%;
+  gap: 8px;
+  justify-content: 'flex-start';
+`;
+
+export const DatetimePickerTitle = styled.Text`
+  color: ${theme.COLORS.GRAY_200};
 `;
 
 export const DietTypeSelector = styled.View`

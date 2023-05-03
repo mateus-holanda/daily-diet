@@ -1,35 +1,67 @@
 import { useState } from 'react';
 import { Alert, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import RNDateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 
 import { AppError } from '@utils/AppError';
+import { createMeal } from '@storage/meals/createMeal';
 
 import { Header } from '@components/Header';
 import { Button } from '@components/Button';
 import { Input } from '@components/Input';
-import { DatetimePicker } from '@components/DatetimePicker';
 import { DietTypeButton } from '@components/DietTypeButton';
 
 import {
+  ButtonContainer,
   Container,
-  DatetimePickerContainer,
+  DatetimePickersContainer,
+  DatetimePickerInput,
+  DatetimePickerTitle,
   DietTypeSelector,
   DietTypeButtons,
-  NewMealForm,
-  ButtonContainer
+  NewMealForm
 } from './styles';
 
 export function NewMeal() {
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
   const [onDiet, setOnDiet] = useState<boolean | undefined>(undefined);
+
+  const [currentDatetime, setCurrentDatetime] = useState(new Date());
+  const [date, setDate] = useState(currentDatetime.toLocaleDateString(
+    'pt-BR', { 
+      year: '2-digit',
+      month: '2-digit',
+      day: '2-digit'
+    }
+  ));
+  const [time, setTime] = useState(currentDatetime.toLocaleTimeString(
+    'pt-BR', {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false
+    }
+  ));
 
   const navigation = useNavigation();
   
-  function handleRegisterNewMeal() {
+  async function handleRegisterNewMeal() {
     try {
-      if (onDiet === undefined) {
+      if (name.trim().length === 0 || description.trim().length === 0) {
+        return Alert.alert('Nova refeição', "Por favor, preencha todos os campos com as informações de sua refeição.");
+      } else if (onDiet === undefined) {
         return Alert.alert('Nova refeição', "Por favor, informe se a refeição está dentro ou fora da dieta.");
       }
 
+      const meal = {
+        name,
+        description,
+        date,
+        time,
+        onDiet
+      }
+
+      await createMeal(meal);
       navigation.navigate('registered', { onDiet });
     } catch (error) {
       if (error instanceof AppError) {
@@ -48,6 +80,7 @@ export function NewMeal() {
         <Input
           title="Nome"
           returnKeyType="done"
+          onChangeText={setName}
         />
 
         <Input
@@ -57,12 +90,55 @@ export function NewMeal() {
           numberOfLines={1}
           returnKeyType="done"
           clearButtonMode="never"
+          onChangeText={setDescription}
         />
 
-        <DatetimePickerContainer>
-          <DatetimePicker title="Data" mode="date" />
-          <DatetimePicker title="Hora" mode="time" />
-        </DatetimePickerContainer>
+        <DatetimePickersContainer>
+        <DatetimePickerInput>
+          <DatetimePickerTitle>Data</DatetimePickerTitle>
+          <RNDateTimePicker
+            testID="dateTimePicker"
+            style={{ alignSelf: 'flex-start', width: '70%' }}
+            value={currentDatetime}
+            mode="date"
+            locale="pt-BR"
+            dateFormat="shortdate"
+            accentColor="#1B1D1E"
+            onChange={(e: DateTimePickerEvent) => {
+              if (e.nativeEvent.timestamp) {
+                setCurrentDatetime(new Date(e.nativeEvent.timestamp));
+                setDate(Intl.DateTimeFormat('pt-BR', {
+                  year: '2-digit',
+                  month: '2-digit',
+                  day: '2-digit'
+                }).format(e.nativeEvent.timestamp));
+              }
+            }}
+          />
+        </DatetimePickerInput>
+          
+        <DatetimePickerInput>
+          <DatetimePickerTitle>Hora</DatetimePickerTitle>
+          <RNDateTimePicker
+            testID="dateTimePicker"
+            style={{ alignSelf: 'flex-start', width: '40%' }}
+            value={currentDatetime}
+            mode="time"
+            locale="pt-BR"
+            accentColor="#1B1D1E"
+            onChange={(e: DateTimePickerEvent) => {
+              if (e.nativeEvent.timestamp) {
+                setCurrentDatetime(new Date(e.nativeEvent.timestamp));
+                setTime(Intl.DateTimeFormat('pt-BR', {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  hour12: false
+                }).format(e.nativeEvent.timestamp));
+              }
+            }}
+          />
+        </DatetimePickerInput>
+        </DatetimePickersContainer>
 
         <DietTypeSelector>
           <Text>Está dentro da dieta?</Text>

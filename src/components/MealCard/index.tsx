@@ -3,7 +3,6 @@ import { TouchableOpacityProps } from 'react-native';
 import {
   Container,
   Meal,
-  MealCardTypeStyleProps,
   Time,
   TypeIndicator,
   VerticalBar
@@ -12,16 +11,16 @@ import {
 interface MealCardProps extends TouchableOpacityProps {
   time: string;
   meal: string;
-  type: MealCardTypeStyleProps;
+  onDiet: boolean;
 }
 
-export function MealCard({ time, meal, type, ...rest }: MealCardProps) {
+export function MealCard({ time, meal, onDiet, ...rest }: MealCardProps) {
   return (
-    <Container type={type} {...rest}>
+    <Container onDiet={onDiet} {...rest}>
       <Time>{time}</Time>
       <VerticalBar />
       <Meal>{meal}</Meal>
-      <TypeIndicator type={type} />
+      <TypeIndicator onDiet={onDiet} />
     </Container>
   );
 }

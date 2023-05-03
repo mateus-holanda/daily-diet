@@ -2,10 +2,8 @@ import styled from 'styled-components/native';
 
 import theme from '@theme/index';
 
-export type MealCardTypeStyleProps = 'POSITIVE' | 'NEGATIVE';
-
 interface TouchableOpacityProps {
-  type: MealCardTypeStyleProps;
+  onDiet: boolean;
 }
 
 export const Container = styled.TouchableOpacity<TouchableOpacityProps>`
@@ -18,7 +16,7 @@ export const Container = styled.TouchableOpacity<TouchableOpacityProps>`
 
   align-items: center;
 
-  border-color: ${({ type }) => type === 'POSITIVE' ? theme.COLORS.GREEN_LIGHT : theme.COLORS.RED_LIGHT };
+  border-color: ${({ onDiet }) => onDiet ? theme.COLORS.GREEN_LIGHT : theme.COLORS.RED_LIGHT };
   background-color: ${theme.COLORS.GRAY_700};
 `;
 
@@ -52,5 +50,5 @@ export const TypeIndicator = styled.View<TouchableOpacityProps>`
   right: 16px;
   border-radius: 100%;
   
-  background-color: ${({ type }) => type === 'POSITIVE' ? theme.COLORS.GREEN_LIGHT : theme.COLORS.RED_LIGHT };
+  background-color: ${({ onDiet }) => onDiet ? theme.COLORS.GREEN_LIGHT : theme.COLORS.RED_LIGHT };
 `;

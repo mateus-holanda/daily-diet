@@ -1,3 +1,5 @@
+import { StatsCard } from '@components/StatsCard';
+
 import { useNavigation } from '@react-navigation/native';
 
 import {
@@ -9,11 +11,12 @@ import {
 } from './styles';
 
 interface HeaderProps {
-  title: string;
   type: HeaderTypeStyleProps;
+  title?: string;
+  number?: string;
 }
 
-export function Header({ title, type }: HeaderProps) {
+export function Header({ type, title, number }: HeaderProps) {
   const navigation = useNavigation();
 
   function handleGoBack() {
@@ -21,12 +24,22 @@ export function Header({ title, type }: HeaderProps) {
   }
 
   return (
-    <Container type={type}>
+    <Container title={title} type={type}>
       <BackButton onPress={handleGoBack}>
-        <BackIcon name="arrowleft" />
+        <BackIcon type={type} name="arrowleft" />
       </BackButton>
 
-      <Title>{title}</Title>
+      {
+        title ? <Title>{title}</Title> : (
+          <StatsCard
+            main
+            type={type}
+            number={number}
+            description="dentro"
+            disabled
+          />
+        )
+      }
     </Container>
   );
 }
