@@ -107,6 +107,7 @@ export function EditMeal() {
           numberOfLines={1}
           returnKeyType="done"
           clearButtonMode="never"
+          blurOnSubmit
           onChangeText={(value) => {
             setNewDescription(value);
             setHasChanged(true);

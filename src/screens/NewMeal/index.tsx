@@ -90,6 +90,7 @@ export function NewMeal() {
           numberOfLines={1}
           returnKeyType="done"
           clearButtonMode="never"
+          blurOnSubmit
           onChangeText={setDescription}
         />
 
